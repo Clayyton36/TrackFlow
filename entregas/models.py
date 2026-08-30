@@ -31,6 +31,7 @@ class Entrega(models.Model):
     origem = models.CharField(max_length=200)
     destino = models.CharField(max_length=200)
     transportadora = models.CharField(max_length=100, blank=True)
+    prazo_entrega = models.DateField(null=True, blank=True)
 
     criado_em = models.DateTimeField(auto_now_add=True)
 

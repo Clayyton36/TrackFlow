@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Análises - TrackFlow{% endblock %}
+{% block content %}
+<h1>Análises</h1>
+
+<div class="cards-metricas">
+    <div class="card-metrica">
+        <span class="card-metrica-valor">{{ metricas.total_entregas }}</span>
+        <span class="card-metrica-rotulo">Entregas cadastradas</span>
+    </div>
+    <div class="card-metrica">
+        <span class="card-metrica-valor">{{ metricas.entregues }}</span>
+        <span class="card-metrica-rotulo">Entregues</span>
+    </div>
+    <div class="card-metrica">
+        <span class="card-metrica-valor">{{ metricas.tempo_medio_entrega_formatado }}</span>
+        <span class="card-metrica-rotulo">Tempo médio de entrega</span>
+    </div>
+    <div class="card-metrica{% if metricas.atrasadas %} card-metrica-alerta{% endif %}">
+        <span class="card-metrica-valor">{{ metricas.atrasadas|length }}</span>
+        <span class="card-metrica-rotulo">Entregas atrasadas</span>
+    </div>
+</div>
+
+{% if metricas.atrasadas %}
+<h2>Entregas atrasadas</h2>
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Prazo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entrega in metricas.atrasadas %}
+        <tr>
+            <td><a href="{% url 'detalhe_entrega' entrega.codigo_rastreio %}">{{ entrega.codigo_rastreio }}</a></td>
+            <td>{{ entrega.cliente_nome }}</td>
+            <td>{{ entrega.prazo_entrega }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<h2>Entregas por transportadora</h2>
+{% if metricas.por_transportadora %}
+<ul class="barras-transportadora">
+    {% for item in metricas.por_transportadora %}
+    <li>
+        <div class="barra-info">
+            <span>{{ item.nome }}</span>
+            <span>{{ item.quantidade }}</span>
+        </div>
+        <div class="barra-fundo" role="img" aria-label="{{ item.nome }}: {{ item.quantidade }} entregas">
+            <div class="barra-preenchida" style="width: {{ item.percentual_da_maior }}%"></div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Nenhuma entrega cadastrada ainda.</p>
+{% endif %}
+{% endblock %}

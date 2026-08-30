@@ -7,6 +7,7 @@ from django.views import View
 from django.views.generic import CreateView, TemplateView
 from rest_framework.generics import RetrieveAPIView
 
+from .analytics import calcular_metricas
 from .forms import CadastroEmpresaForm, EntregaForm, StatusHistoricoForm
 from .models import Entrega
 from .serializers import EntregaPublicaSerializer
@@ -66,6 +67,12 @@ def detalhe_entrega(request, codigo):
         "entregas/detalhe_entrega.html",
         {"entrega": entrega, "form": form, "historico": entrega.historico.all()},
     )
+
+
+@login_required
+def analytics(request):
+    metricas = calcular_metricas(request.user.empresa)
+    return render(request, "entregas/analytics.html", {"metricas": metricas})
 
 
 class RastreioPublicoView(TemplateView):

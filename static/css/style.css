@@ -90,6 +90,31 @@ th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--cor-b
 
 .erro { color: var(--cor-erro); font-weight: 600; }
 
+.cards-metricas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.card-metrica {
+    border: 1px solid var(--cor-borda);
+    border-radius: 6px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.card-metrica-valor { font-size: 1.75rem; font-weight: 700; }
+.card-metrica-rotulo { color: #555; font-size: 0.9rem; }
+.card-metrica-alerta { border-color: var(--cor-erro); }
+.card-metrica-alerta .card-metrica-valor { color: var(--cor-erro); }
+
+.barras-transportadora { list-style: none; padding: 0; margin: 1rem 0; }
+.barras-transportadora li { margin-bottom: 0.75rem; }
+.barra-info { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+.barra-fundo { background: #eee; border-radius: 4px; height: 0.75rem; overflow: hidden; }
+.barra-preenchida { background: var(--cor-primaria); height: 100%; }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --cor-texto: #f0f0f0;
