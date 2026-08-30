@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Painel - TrackFlow{% endblock %}
+{% block content %}
+<h1>Minhas entregas</h1>
+<p><a href="{% url 'criar_entrega' %}" class="botao">+ Nova entrega</a></p>
+
+{% if entregas %}
+<table>
+    <caption class="sr-only">Lista de entregas cadastradas</caption>
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Destino</th>
+            <th scope="col">Status atual</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entrega in entregas %}
+        <tr>
+            <td><a href="{% url 'detalhe_entrega' entrega.codigo_rastreio %}">{{ entrega.codigo_rastreio }}</a></td>
+            <td>{{ entrega.cliente_nome }}</td>
+            <td>{{ entrega.destino }}</td>
+            <td>{{ entrega.status_atual|default:"—" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhuma entrega cadastrada ainda.</p>
+{% endif %}
+{% endblock %}

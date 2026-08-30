@@ -1,0 +1,35 @@
+{% load static %}<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TrackFlow{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+    <header class="cabecalho">
+        <a href="{% url 'rastreio' %}" class="logo">TrackFlow</a>
+        <nav aria-label="Navegação principal">
+            {% if user.is_authenticated %}
+                <span>Olá, {{ user.empresa.nome_fantasia }}</span>
+                <a href="{% url 'dashboard' %}">Painel</a>
+                <a href="{% url 'logout' %}">Sair</a>
+            {% else %}
+                <a href="{% url 'login' %}">Entrar</a>
+                <a href="{% url 'cadastro' %}">Cadastrar empresa</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    {% if messages %}
+        <ul class="mensagens" role="status">
+            {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+        </ul>
+    {% endif %}
+
+    <main id="conteudo-principal" class="conteudo">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

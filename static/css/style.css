@@ -1,0 +1,99 @@
+:root {
+    --cor-texto: #1a1a1a;
+    --cor-fundo: #ffffff;
+    --cor-primaria: #0b5fff;
+    --cor-borda: #cccccc;
+    --cor-sucesso: #1c6e2e;
+    --cor-erro: #b3261e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--cor-texto);
+    background: var(--cor-fundo);
+    line-height: 1.5;
+}
+
+.pular-para-conteudo {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--cor-primaria);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+}
+.pular-para-conteudo:focus { left: 0; }
+
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.cabecalho nav a { margin-left: 1rem; color: var(--cor-primaria); }
+
+.logo { font-weight: 700; font-size: 1.25rem; text-decoration: none; color: var(--cor-texto); }
+
+.conteudo { max-width: 720px; margin: 0 auto; padding: 1.5rem; }
+
+.mensagens { list-style: none; padding: 0.75rem 1.5rem; background: #eef6ff; margin: 0; }
+
+form p { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1rem; }
+
+label { font-weight: 600; }
+
+input, select, textarea {
+    padding: 0.5rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus, a:focus, button:focus {
+    outline: 3px solid var(--cor-primaria);
+    outline-offset: 2px;
+}
+
+button, .botao {
+    background: var(--cor-primaria);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.busca-rastreio { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+.busca-rastreio input { flex: 1; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--cor-borda); }
+
+.timeline { list-style: none; padding: 0; margin: 1.5rem 0; }
+.timeline li {
+    border-left: 3px solid var(--cor-primaria);
+    padding: 0.5rem 0 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+}
+.timeline li.status-entregue { border-color: var(--cor-sucesso); }
+.timeline li.status-extraviado { border-color: var(--cor-erro); }
+.timeline .status-nome { font-weight: 700; }
+.timeline .status-data { color: #555; font-size: 0.9rem; }
+.timeline img { max-width: 200px; display: block; margin-top: 0.5rem; border-radius: 4px; }
+
+.erro { color: var(--cor-erro); font-weight: 600; }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cor-texto: #f0f0f0;
+        --cor-fundo: #121212;
+        --cor-borda: #444444;
+    }
+}

@@ -1,0 +1,12 @@
+Django==6.1
+djangorestframework==3.18.0
+Pillow==12.3.0
+dj-database-url==3.1.2
+python-dotenv==1.2.3
+gunicorn==26.2.0
+whitenoise==6.12.0
+
+# Descomente as duas linhas abaixo apenas se for usar Cloudinary em produção
+# (necessário quando a variável de ambiente CLOUDINARY_URL estiver definida)
+# django-cloudinary-storage==0.3.0
+# cloudinary==1.41.0

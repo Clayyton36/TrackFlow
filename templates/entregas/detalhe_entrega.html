@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ entrega.codigo_rastreio }} - TrackFlow{% endblock %}
+{% block content %}
+<h1>Entrega {{ entrega.codigo_rastreio }}</h1>
+<p>
+    Cliente: {{ entrega.cliente_nome }} ({{ entrega.cliente_contato|default:"sem contato" }})<br>
+    {{ entrega.origem }} → {{ entrega.destino }}<br>
+    Transportadora: {{ entrega.transportadora|default:"—" }}
+</p>
+<p>Link público de rastreio: <a href="{% url 'rastreio_codigo' entrega.codigo_rastreio %}">{% url 'rastreio_codigo' entrega.codigo_rastreio %}</a></p>
+
+<h2>Histórico</h2>
+{% if historico %}
+<ol class="timeline">
+    {% for evento in historico %}
+    <li class="status-{{ evento.status|lower }}">
+        <span class="status-nome">{{ evento.get_status_display }}</span>
+        <span class="status-data">{{ evento.data_hora }}</span>
+        {% if evento.observacao %}<p>{{ evento.observacao }}</p>{% endif %}
+        {% if evento.foto %}
+            <img src="{{ evento.foto.url }}" alt="Foto de comprovação do status {{ evento.get_status_display }}">
+        {% endif %}
+    </li>
+    {% endfor %}
+</ol>
+{% else %}
+<p>Nenhum status registrado ainda.</p>
+{% endif %}
+
+{% if form.fields.status.choices %}
+<h2>Atualizar status</h2>
+<form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <p class="erro">{{ form.non_field_errors.0 }}</p>
+    {% endif %}
+    {{ form.as_p }}
+    <button type="submit">Registrar status</button>
+</form>
+{% else %}
+<p>Esta entrega já está em um status final.</p>
+{% endif %}
+{% endblock %}

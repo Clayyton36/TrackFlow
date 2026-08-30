@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Rastrear entrega - TrackFlow{% endblock %}
+{% block content %}
+<h1>Rastrear entrega</h1>
+
+<form class="busca-rastreio" id="form-busca" novalidate>
+    <label for="codigo-rastreio">Código de rastreio</label>
+    <input type="text" id="codigo-rastreio" name="codigo" placeholder="TRK-XXXXXX" value="{{ codigo }}" required>
+    <button type="submit">Buscar</button>
+</form>
+
+<div id="resultado" aria-live="polite">
+    <p id="mensagem-status"></p>
+</div>
+
+<script src="{% static 'js/rastreio.js' %}"></script>
+{% endblock %}
