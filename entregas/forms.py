@@ -27,14 +27,16 @@ class CadastroEmpresaForm(UserCreationForm):
 class EntregaForm(forms.ModelForm):
     class Meta:
         model = Entrega
-        fields = ["cliente_nome", "cliente_contato", "origem", "destino", "transportadora"]
+        fields = ["cliente_nome", "cliente_contato", "origem", "destino", "transportadora", "prazo_entrega"]
         labels = {
             "cliente_nome": "Nome do cliente",
             "cliente_contato": "Contato do cliente (telefone/e-mail)",
             "origem": "Origem",
             "destino": "Destino",
             "transportadora": "Transportadora",
+            "prazo_entrega": "Prazo de entrega (opcional)",
         }
+        widgets = {"prazo_entrega": forms.DateInput(attrs={"type": "date"})}
 
 
 class StatusHistoricoForm(forms.ModelForm):
