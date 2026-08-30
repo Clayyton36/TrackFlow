@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_spectacular",
     "entregas",
 ]
 
@@ -126,6 +127,14 @@ LOGOUT_REDIRECT_URL = "login"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "TrackFlow API",
+    "DESCRIPTION": "API pública de rastreamento de entregas do TrackFlow.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 # Tamanho máximo de upload de foto (5 MB) antes de qualquer redimensionamento.

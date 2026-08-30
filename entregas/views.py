@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, TemplateView
+from drf_spectacular.utils import OpenApiExample, OpenApiResponse, extend_schema
 from rest_framework.generics import RetrieveAPIView
 
 from .analytics import calcular_metricas
@@ -87,6 +88,48 @@ class RastreioPublicoView(TemplateView):
         return context
 
 
+@extend_schema(
+    summary="Consultar rastreio de uma entrega",
+    description=(
+        "Endpoint público, sem autenticação. Retorna o status atual e a timeline "
+        "completa de uma entrega a partir do seu código de rastreio. Não expõe "
+        "dados internos da empresa nem o contato do cliente."
+    ),
+    responses={
+        200: EntregaPublicaSerializer,
+        404: OpenApiResponse(description="Código de rastreio não encontrado."),
+    },
+    examples=[
+        OpenApiExample(
+            "Exemplo de resposta",
+            value={
+                "codigo_rastreio": "TRK-7F3K9A",
+                "origem": "São Paulo, SP",
+                "destino": "Campinas, SP",
+                "transportadora": "TransRápida",
+                "cliente_nome": "Maria Cliente",
+                "status_atual": "EM_TRANSITO",
+                "historico": [
+                    {
+                        "status": "AGENDADO",
+                        "status_display": "Agendado",
+                        "data_hora": "2026-08-28T09:00:00-03:00",
+                        "observacao": "Pedido confirmado",
+                        "foto_url": None,
+                    },
+                    {
+                        "status": "COLETADO",
+                        "status_display": "Coletado",
+                        "data_hora": "2026-08-28T14:30:00-03:00",
+                        "observacao": "",
+                        "foto_url": "https://exemplo.com/media/entregas/TRK-7F3K9A/COLETADO_foto.jpg",
+                    },
+                ],
+            },
+            response_only=True,
+        )
+    ],
+)
 class RastreioPublicoAPIView(RetrieveAPIView):
     serializer_class = EntregaPublicaSerializer
     lookup_field = "codigo_rastreio"
