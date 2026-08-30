@@ -57,6 +57,9 @@ são validadas em `entregas/models.py::StatusHistorico.transicao_valida`.
 e timeline completa (incluindo URL das fotos). Não expõe dados da empresa nem
 contato do cliente.
 
+Documentação interativa (Swagger UI) em `/api/docs/`; schema OpenAPI bruto em
+`/api/schema/`.
+
 ## Deploy
 
 1. Suba o código num repositório Git/GitHub.

@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from .models import Entrega, StatusHistorico
@@ -11,6 +12,7 @@ class StatusHistoricoPublicoSerializer(serializers.ModelSerializer):
         model = StatusHistorico
         fields = ["status", "status_display", "data_hora", "observacao", "foto_url"]
 
+    @extend_schema_field(serializers.URLField(allow_null=True))
     def get_foto_url(self, obj):
         if not obj.foto:
             return None
