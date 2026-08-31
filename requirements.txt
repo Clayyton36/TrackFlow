@@ -8,7 +8,6 @@ python-dotenv==1.2.3
 gunicorn==26.2.0
 whitenoise==6.12.0
 
-# Descomente as duas linhas abaixo apenas se for usar Cloudinary em produção
-# (necessário quando a variável de ambiente CLOUDINARY_URL estiver definida)
-# django-cloudinary-storage==0.3.0
-# cloudinary==1.41.0
+# Storage de fotos em produção — ativa sozinho quando CLOUDINARY_URL existir (ver settings.py)
+django-cloudinary-storage==0.3.0
+cloudinary==1.41.0
