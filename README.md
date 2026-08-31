@@ -69,7 +69,7 @@ Documentação interativa (Swagger UI) em `/api/docs/`; schema OpenAPI bruto em
    já que o disco do Render/Railway é efêmero. Descomente as duas linhas do
    Cloudinary no `requirements.txt` antes de instalar.
 4. Defina `SECRET_KEY`, `DEBUG=False` e `ALLOWED_HOSTS` com o domínio do serviço.
-5. O `Procfile` já roda `migrate` no release e sobe com `gunicorn`.
+5. O `Procfile` já roda `migrate` e `collectstatic` antes de subir o `gunicorn` (Railway não executa a fase `release:` do Procfile como o Heroku, por isso está tudo embutido no comando `web`).
 
 ## Acessibilidade
 
