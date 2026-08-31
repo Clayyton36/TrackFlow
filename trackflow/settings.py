@@ -103,6 +103,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# Serve arquivos na raiz (ex: /sw.js) — o service worker precisa estar fora de
+# /static/ pra poder controlar escopo "/" sem exigir o header Service-Worker-Allowed.
+WHITENOISE_ROOT = BASE_DIR / "static_root"
 
 # Media (fotos de comprovação)
 MEDIA_URL = "media/"
@@ -116,7 +119,13 @@ STORAGES = {
             else "django.core.files.storage.FileSystemStorage"
         )
     },
-    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+    "staticfiles": {
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        )
+    },
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

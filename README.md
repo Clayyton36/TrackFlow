@@ -79,3 +79,18 @@ Documentação interativa (Swagger UI) em `/api/docs/`; schema OpenAPI bruto em
   quando o status muda, mesmo sem reload da página.
 - Contraste de cores testado em modo claro e escuro (`prefers-color-scheme`).
 - Fotos de comprovação têm texto alternativo (`alt`) descritivo.
+
+## PWA (instalável no celular)
+
+O site é um Progressive Web App: `static/manifest.json` + service worker em
+`/sw.js` (servido na raiz via `WHITENOISE_ROOT`, necessário pro escopo do
+service worker cobrir o site inteiro). Isso permite "Adicionar à tela inicial"
+no Android/iOS. O service worker só faz cache de arquivos estáticos
+(CSS/JS/ícones) — páginas e a API de rastreio sempre vão direto pra rede, pra
+nunca mostrar um status de entrega desatualizado.
+
+Pra publicar na Google Play Store sem reescrever nada, dá pra empacotar esse
+PWA com [PWABuilder](https://www.pwabuilder.com/) ou
+[Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap) (gera um TWA —
+Trusted Web Activity). Isso exige uma conta de desenvolvedor Google Play
+(paga, única vez) que só você pode criar.

@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b5fff">
     <title>{% block title %}TrackFlow{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <link rel="apple-touch-icon" href="{% static 'icons/apple-touch-icon.png' %}">
+    <link rel="icon" href="{% static 'icons/icon-192.png' %}">
 </head>
 <body>
     <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
@@ -32,5 +36,13 @@
     <main id="conteudo-principal" class="conteudo">
         {% block content %}{% endblock %}
     </main>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("/sw.js");
+            });
+        }
+    </script>
 </body>
 </html>
