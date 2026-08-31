@@ -19,7 +19,10 @@
                 <span>Olá, {{ user.empresa.nome_fantasia }}</span>
                 <a href="{% url 'dashboard' %}">Painel</a>
                 <a href="{% url 'analytics' %}">Análises</a>
-                <a href="{% url 'logout' %}">Sair</a>
+                <form method="post" action="{% url 'logout' %}" class="form-sair">
+                    {% csrf_token %}
+                    <button type="submit">Sair</button>
+                </form>
             {% else %}
                 <a href="{% url 'login' %}">Entrar</a>
                 <a href="{% url 'cadastro' %}">Cadastrar empresa</a>
