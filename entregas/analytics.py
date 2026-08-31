@@ -1,4 +1,6 @@
-from datetime import date, timedelta
+from datetime import timedelta
+
+from django.utils import timezone
 
 from .models import Empresa, StatusHistorico
 
@@ -17,7 +19,7 @@ def formatar_duracao(delta: timedelta | None) -> str:
 
 def calcular_metricas(empresa: Empresa) -> dict:
     entregas = list(empresa.entregas.prefetch_related("historico"))
-    hoje = date.today()
+    hoje = timezone.localdate()
 
     tempos_entrega = []
     atrasadas = []

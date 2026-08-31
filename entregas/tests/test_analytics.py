@@ -55,7 +55,7 @@ class CalcularMetricasTests(TestCase):
         self.assertEqual(metricas["tempo_medio_entrega_formatado"], "2 dia(s)")
 
     def test_entrega_com_prazo_vencido_e_nao_entregue_conta_como_atrasada(self):
-        entrega = criar_entrega(empresa=self.empresa, prazo_entrega=(timezone.now() - timedelta(days=1)).date())
+        entrega = criar_entrega(empresa=self.empresa, prazo_entrega=timezone.localdate() - timedelta(days=1))
         registrar_status(entrega, StatusHistorico.AGENDADO)
 
         metricas = calcular_metricas(self.empresa)
@@ -63,7 +63,7 @@ class CalcularMetricasTests(TestCase):
         self.assertEqual(metricas["atrasadas"], [entrega])
 
     def test_entrega_entregue_nao_conta_como_atrasada_mesmo_com_prazo_vencido(self):
-        entrega = criar_entrega(empresa=self.empresa, prazo_entrega=(timezone.now() - timedelta(days=1)).date())
+        entrega = criar_entrega(empresa=self.empresa, prazo_entrega=timezone.localdate() - timedelta(days=1))
         registrar_status(entrega, StatusHistorico.AGENDADO)
         registrar_status(entrega, StatusHistorico.COLETADO)
         registrar_status(entrega, StatusHistorico.EM_TRANSITO)
