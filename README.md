@@ -60,6 +60,13 @@ contato do cliente.
 Documentação interativa (Swagger UI) em `/api/docs/`; schema OpenAPI bruto em
 `/api/schema/`.
 
+## Integração com ViaCEP
+
+No formulário de nova entrega, os campos de CEP de origem/destino consultam a
+[ViaCEP](https://viacep.com.br/) direto do navegador (`static/js/cep.js`) e
+preenchem o campo de endereço automaticamente — sem envolver o backend. É
+opcional: quem preferir digitar o endereço à mão pode ignorar o CEP.
+
 ## Deploy
 
 1. Suba o código num repositório Git/GitHub.

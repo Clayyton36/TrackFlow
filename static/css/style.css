@@ -107,6 +107,13 @@ th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--cor-b
 
 .erro { color: var(--cor-erro); font-weight: 600; }
 
+.status-cep {
+    display: block;
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.25rem;
+}
+
 .cards-metricas {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

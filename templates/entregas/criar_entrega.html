@@ -1,10 +1,56 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Nova entrega - TrackFlow{% endblock %}
 {% block content %}
 <h1>Nova entrega</h1>
 <form method="post" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
+
+    <p>
+        {{ form.cliente_nome.label_tag }}
+        {{ form.cliente_nome }}
+        {{ form.cliente_nome.errors }}
+    </p>
+    <p>
+        {{ form.cliente_contato.label_tag }}
+        {{ form.cliente_contato }}
+        {{ form.cliente_contato.errors }}
+    </p>
+
+    <p>
+        <label for="cep-origem">CEP de origem (opcional, preenche o endereço abaixo)</label>
+        <input type="text" id="cep-origem" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="off">
+        <span id="status-cep-origem" aria-live="polite" class="status-cep"></span>
+    </p>
+    <p>
+        {{ form.origem.label_tag }}
+        {{ form.origem }}
+        {{ form.origem.errors }}
+    </p>
+
+    <p>
+        <label for="cep-destino">CEP de destino (opcional, preenche o endereço abaixo)</label>
+        <input type="text" id="cep-destino" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="off">
+        <span id="status-cep-destino" aria-live="polite" class="status-cep"></span>
+    </p>
+    <p>
+        {{ form.destino.label_tag }}
+        {{ form.destino }}
+        {{ form.destino.errors }}
+    </p>
+
+    <p>
+        {{ form.transportadora.label_tag }}
+        {{ form.transportadora }}
+        {{ form.transportadora.errors }}
+    </p>
+    <p>
+        {{ form.prazo_entrega.label_tag }}
+        {{ form.prazo_entrega }}
+        {{ form.prazo_entrega.errors }}
+    </p>
+
     <button type="submit">Criar entrega</button>
 </form>
+<script src="{% static 'js/cep.js' %}"></script>
 {% endblock %}
